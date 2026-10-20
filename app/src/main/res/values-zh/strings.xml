@@ -1227,4 +1227,6 @@ mDNS 地址：使用 .local 主机名，同一网络中的其他设备可通过�
   <string name="liquid_glass_blur_unsupported">背景模糊需要 Android 12 或以上版本。</string>
   <string name="liquid_glass_preview_assistant">看看背景的磨砂效果</string>
   <string name="liquid_glass_preview_user">试着调节两个滑块</string>
+  <string name="assistant_page_local_tools_shizuku_shell_title">Shizuku 终端</string>
+  <string name="assistant_page_local_tools_shizuku_shell_desc">允许 AI 通过 Shizuku 在本设备执行 shell 命令（等同 ADB 权限）。</string>
 </resources>
