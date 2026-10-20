@@ -9,7 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 120
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,8 +22,16 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          packages: 'platforms;android-37 build-tools;37.0.0 platform-tools'
+          packages: 'platform-tools'
           log-accepted-android-sdk-licenses: true
+
+      - name: Install SDK 37
+        run: |
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          sdkmanager 'platforms;android-37.0' 'build-tools;37.0.0' 'platform-tools'
+          echo '--- installed ---'
+          ls -la "${ANDROID_SDK_ROOT}/platforms" || true
+          ls -la "${ANDROID_SDK_ROOT}/build-tools" || true
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -43,7 +50,7 @@ jobs:
       - name: Locate APK
         if: always()
         run: |
-          find app/build/outputs -name "*.apk" -type f 2>/dev/null || echo "no apk found"
+          find app/build/outputs -name '*.apk' -type f 2>/dev/null || echo 'no apk found'
 
       - name: Upload APK
         if: success()
