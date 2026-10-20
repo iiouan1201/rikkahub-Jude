@@ -80,6 +80,10 @@ sealed class LocalToolOption {
     @Serializable
     @SerialName("voice_call")
     data object VoiceCall : LocalToolOption()
+    
+    @Serializable
+    @SerialName("shizuku_shell")
+    data object ShizukuShell : LocalToolOption()
 }
 
 class LocalTools(
@@ -1008,6 +1012,9 @@ class LocalTools(
         }
         if (usageLockEnabled) {
             tools.add(usageLockTool)
+        }
+        if (options.contains(LocalToolOption.ShizukuShell)) {
+            tools.add(shizukuShellTool)
         }
         if (options.contains(LocalToolOption.VoiceCall)) {
             tools.add(requestVoiceCallTool(voiceCallConfigured))
