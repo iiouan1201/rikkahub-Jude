@@ -1263,5 +1263,7 @@
   <string name="liquid_glass_blur_unsupported">Background blur requires Android 12 or later.</string>
   <string name="liquid_glass_preview_assistant">See the frosted background</string>
   <string name="liquid_glass_preview_user">Adjust both sliders</string>
+  <string name="assistant_page_local_tools_shizuku_shell_title">Shizuku Shell</string>
+  <string name="assistant_page_local_tools_shizuku_shell_desc">Let the assistant run shell commands on this device through Shizuku (ADB-level privileges).</string>
 </resources>
 
