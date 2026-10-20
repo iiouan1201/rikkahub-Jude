@@ -22,30 +22,30 @@ val shizukuShellTool by lazy {
             InputSchema.Obj(
                 properties = buildJsonObject {
                     put("command", buildJsonObject {
-                        put("type", "string")
-                        put("description", "Shell command to run, e.g. 'pm list packages | grep rikka'")
+                        put("type", JsonPrimitive("string"))
+                        put("description", JsonPrimitive("Shell command to run, e.g. 'pm list packages | grep rikka'"))
                     })
                     put("timeout_ms", buildJsonObject {
-                        put("type", "integer")
-                        put("description", "Timeout in milliseconds. Default 30000, max 300000.")
+                        put("type", JsonPrimitive("integer"))
+                        put("description", JsonPrimitive("Timeout in milliseconds. Default 30000, max 300000."))
                     })
                     put("work_dir", buildJsonObject {
-                        put("type", "string")
-                        put("description", "Working directory. Default /sdcard.")
+                        put("type", JsonPrimitive("string"))
+                        put("description", JsonPrimitive("Working directory. Default /sdcard."))
                     })
                 },
                 required = listOf("command")
             )
         },
-        execute = {
+        execute = exec@{
             val obj = it.jsonObject
             val command = obj["command"]?.jsonPrimitive?.contentOrNull.orEmpty()
 
             if (command.isBlank()) {
-                return@execute listOf(UIMessagePart.Text("""{"error":"command is empty"}"""))
+                return@exec listOf(UIMessagePart.Text("""{"error":"command is empty"}"""))
             }
             if (!ShizukuManager.isBinderAvailable()) {
-                return@execute listOf(
+                return@exec listOf(
                     UIMessagePart.Text(
                         buildJsonObject {
                             put("error", JsonPrimitive("shizuku_not_running"))
@@ -58,7 +58,7 @@ val shizukuShellTool by lazy {
                 ShizukuManager.requestPermission()
                 val granted = ShizukuManager.awaitPermission(15_000)
                 if (!granted) {
-                    return@execute listOf(
+                    return@exec listOf(
                         UIMessagePart.Text(
                             buildJsonObject {
                                 put("error", JsonPrimitive("shizuku_permission_denied"))
