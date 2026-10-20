@@ -88,7 +88,7 @@ object ShizukuManager {
             data.writeString(workDir)
             data.writeStrongBinder(null)
 
-            val binder: IBinder = Shizuku.getBinder()
+            val binder: IBinder = Shizuku.getBinder() ?: return ShellResult(-1, "", "Shizuku binder is null")
             binder.transact(TX_NEW_PROCESS, data, reply, 0)
             reply.readException()
 
